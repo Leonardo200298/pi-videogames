@@ -1,17 +1,9 @@
 const express = require('express')
 const router = express.Router()
+const {getAllVideogames} = require('../controllersFunctions/apiFunctions')
 
-router.get('/', (req,res,next)=>{
-    res.send('entre jijiji')
-})
-router.post('/', (req,res,next)=>{
-    res.send('entre jijiji')
-})
-router.put('/', (req,res,next)=>{
-    res.send('entre jijiji')
-})
-router.delete('/', (req,res,next)=>{
-    res.send('entre jijiji')
-})
+
+router.get('/', getAllVideogames)
+
 
 module.exports = router
