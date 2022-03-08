@@ -16,8 +16,10 @@ function getAllVideogames(req, res, next) {
         var tipo = videogamesOfApi.data.results.map((data)=>{
             return ({
                 name:data.name,
-                img:data.background_image
-
+                img:data.background_image,
+                id:data.id,
+                rating:data.rating,
+                description:data.slug
             })
         })
         let allData = [...tipo]
