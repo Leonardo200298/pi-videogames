@@ -4,26 +4,26 @@ const API = 'https://api.rawg.io/api/games?key='
 const APIKEY = '8df31d27f3724043a2e647ffc07e80f5'
 
 //solo por hoy vamos a traer 20 para probar la api
-async function getAllVideogames(req, res, next) {
-    var twentyVideogames = [];
-    var videogamesByRequest;
+function getAllVideogames(req, res, next) {
 
-    const { data } = axios.get(API + APIKEY)
-    twentyVideogames.push(data)
-    const algo = await Promise.all(twentyVideogames)
-    videogamesByRequest = algo.map((data) => {
-        console.log('soy data', data)
-        return ({
-            nombre: data.results.map((info) = {
-                name: info.name
-            }),
 
-            img: data.results.background_image
+    const elementsOfApi = axios.get(API + APIKEY)
+   
+    Promise.all([elementsOfApi])
+    .then((respuesta)=>{
+        const [videogamesOfApi] = respuesta
+        //console.log(videogamesOfApi.data)
+        var tipo = videogamesOfApi.data.results.map((data)=>{
+            return ({
+                name:data.name,
+                img:data.background_image
 
+            })
         })
-
+        let allData = [...tipo]
+        res.send(allData)
     })
-    return res.send(videogamesByRequest)
+   
 }
 
 module.exports = {
