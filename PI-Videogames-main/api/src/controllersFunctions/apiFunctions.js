@@ -19,7 +19,9 @@ function getAllVideogames(req, res, next) {
                 img:data.background_image,
                 id:data.id,
                 rating:data.rating,
-                description:data.slug
+                description:data.slug,
+                genre:'esta en la api',
+                platforms:data.platforms.map((info)=>{return {name:info.platform.name, id:info.platform.id}})
             })
         })
         let allData = [...tipo]
