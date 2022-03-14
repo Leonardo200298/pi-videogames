@@ -17,7 +17,7 @@ async function getVideogamesByApi() {
                     id: data.id,
                     rating: data.rating,
                     description: data.slug,
-                    genre: data.genres.map((info) => { return { name: info.name, id: info.id } }),
+                    genre: data.genres.map((info) => { return { name: info.name} }),
                     platforms: data.platforms.map((info) => { return { name: info.platform.name, id: info.platform.id } })
                 })
             })
