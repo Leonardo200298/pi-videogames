@@ -1,13 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const {getAllVideogames} = require('../controllersFunctions/apiFunctions')
-
+const {videogameCreated} = require('../controllersFunctions/dbFunctions')
 
 
 router.get('/', getAllVideogames)
-router.post('/videogames', (req,res)=>{
-    return res.send('Pronto creado de videogames')
-})
+router.post('/videogames', videogameCreated)
 
 
 module.exports = router

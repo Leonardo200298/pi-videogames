@@ -25,8 +25,8 @@ module.exports = (sequelize) => {
       type:DataTypes.STRING
     },
     plataforms:{
-      type:DataTypes.STRING,
-      allowNull:false
+      type:DataTypes.TEXT,
+      //allowNull:false
     }
   });
 };
