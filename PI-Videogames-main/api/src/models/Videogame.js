@@ -26,7 +26,12 @@ module.exports = (sequelize) => {
     },
     plataforms:{
       type:DataTypes.TEXT,
-      //allowNull:false
-    }
+      /* allowNull:false */
+    },
+   /*  createInDb: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    } */
   });
 };

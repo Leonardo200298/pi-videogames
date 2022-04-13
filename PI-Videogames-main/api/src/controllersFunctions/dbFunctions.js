@@ -28,7 +28,7 @@ const allVideogamesByDb = ()=>{
 }
 const videogameCreated =async (req,res)=>{
     try{
-        const {name, id, img, rating, description, genres, platforms} = req.body
+        const {name, id, img, rating, description, genre, platforms} = req.body
         let videogame =await Videogame.create({
             name,
             id,
@@ -37,14 +37,47 @@ const videogameCreated =async (req,res)=>{
             description,
             platforms
         })
-        console.log('aca estoy',videogame)
-        await videogame.addGenre(genres)
+        
+        await videogame.addGenre(genre)
     }
     catch(error){
         console.log('error in post')
         console.log(error)
     }
     res.status(200).send('created')
+  /*   try{
+
+        let {       
+            name,
+            id,        
+            description,        
+            platform,
+            genre,
+            image,
+            rating,
+            released,
+        } = req.body
+    
+        let gamesCreated = await Videogame.create({ 
+            name, 
+            id,       
+            description,        
+            platform,
+            genre,
+            image,
+            rating,
+            released,
+            
+            })
+        
+            let genresDb = await Genre.findAll({
+                where: { name: genre }
+            })
+            await gamesCreated.addGenres(genresDb)
+            res.send('Video Juego Creado')
+    }catch(error){
+        console.log(error)
+    } */
 }
 
 
