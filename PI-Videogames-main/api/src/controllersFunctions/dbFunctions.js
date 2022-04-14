@@ -34,47 +34,15 @@ const videogameCreated =async (req,res)=>{
             plataforms,
             releaseDate
         })
-        genres.map(async (id)=>await videogame.addGenre(Number(id)))
-        /* await videogame.addGenre(genre) */
+        /* genres.map(async (id)=>await videogame.addGenre(Number(id))) */
+        await videogame.addGenre(genres)
     }
     catch(error){
         console.log('error in post')
         console.log(error)
     }
     res.status(200).send('created')
-  /*   try{
-
-        let {       
-            name,
-            id,        
-            description,        
-            platform,
-            genre,
-            image,
-            rating,
-            released,
-        } = req.body
-    
-        let gamesCreated = await Videogame.create({ 
-            name, 
-            id,       
-            description,        
-            platform,
-            genre,
-            image,
-            rating,
-            released,
-            
-            })
-        
-            let genresDb = await Genre.findAll({
-                where: { name: genre }
-            })
-            await gamesCreated.addGenres(genresDb)
-            res.send('Video Juego Creado')
-    }catch(error){
-        console.log(error)
-    } */
+  
 }
 
 
