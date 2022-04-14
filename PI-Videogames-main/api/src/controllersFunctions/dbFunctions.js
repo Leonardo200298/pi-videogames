@@ -1,21 +1,16 @@
 const {Genre,Videogame} = require('../db')
 const axios = require('axios')
+const APIKEY = '8df31d27f3724043a2e647ffc07e80f5'
 
-async function dbGenres() {
-    try{
-
-        const { data } = await axios.get(' https://api.rawg.io/api/genres')
-        
-        data.map((n) => {
-            Genre.findOrCreate({
-                where: {
-                    name: n.name
-                }
-            })
+async function dbGenres(){
+    const {data} =await axios.get('https://api.rawg.io/api/genres?key=' + APIKEY)
+    data.results.map((n)=>{
+        Genre.findOrCreate({
+            where:{
+                name:n.name
+            }
         })
-    }catch(error){
-        console.log(error)
-    }
+    })
 }
 
 const allVideogamesByDb = ()=>{
@@ -28,17 +23,19 @@ const allVideogamesByDb = ()=>{
 }
 const videogameCreated =async (req,res)=>{
     try{
-        const {name, id, img, rating, description, genre, platforms} = req.body
+        const {name, id, img, rating, description, genres, plataforms, releaseDate} = req.body
+        
         let videogame =await Videogame.create({
             name,
             id,
             img,
             rating,
             description,
-            platforms
+            plataforms,
+            releaseDate
         })
-        
-        await videogame.addGenre(genre)
+        genres.map(async (id)=>await videogame.addGenre(Number(id)))
+        /* await videogame.addGenre(genre) */
     }
     catch(error){
         console.log('error in post')
@@ -84,5 +81,6 @@ const videogameCreated =async (req,res)=>{
 module.exports = {
     allVideogamesByDb,
     dbGenres,
-    videogameCreated
+    videogameCreated,
+    
 }
