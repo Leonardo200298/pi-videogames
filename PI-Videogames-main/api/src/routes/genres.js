@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
+const {getGenresByDb} = require('../controllersFunctions/dbFunctions')
 
-/* router.get('/', (req,res,next)=>{
-    res.send('genre entre al get jijiji')
-}) */
+router.get('/',getGenresByDb)
 
 
 module.exports = router
