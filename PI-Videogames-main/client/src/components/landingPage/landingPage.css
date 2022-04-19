@@ -1,0 +1,15 @@
+.image{
+    width: 400px;
+    height: 240px;
+    border-radius: 20px; 
+    margin-bottom: 5px;
+   
+    
+}
+.landingPage{
+    display: grid; 
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+    
+}
