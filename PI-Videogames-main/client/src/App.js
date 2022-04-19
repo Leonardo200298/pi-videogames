@@ -1,9 +1,10 @@
 import './App.css';
+import RouteRoutes from './components/routesRoute/routeRoutes';
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Videogames</h1>
+      <RouteRoutes />
     </div>
   );
 }
