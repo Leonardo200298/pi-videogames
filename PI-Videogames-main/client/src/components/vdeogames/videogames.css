@@ -1,0 +1,20 @@
+.container-videogames{
+    background-color: #628e5a;
+    
+    width: 500px;
+    height: 500px;
+    justify-content: center;
+    border-radius: 50px;
+    overflow: hidden;
+    cursor: default;
+    transition: all 400ms ease;
+    box-shadow: 0px 1px 10px rgb(0, 0, 0, 0, -2);
+}
+.container-videogames:hover{
+    box-shadow: 5px 5px 20px rgb(0, 0, 0, 0, -4);
+    transform: translateY(-3%);
+}
+.class-image{
+    width: 100%;
+    height: auto;
+}

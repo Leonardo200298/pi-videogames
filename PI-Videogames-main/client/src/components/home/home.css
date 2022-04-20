@@ -1,3 +1,10 @@
-.home{
+.home {
     color: white;
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin-bottom: 30px;
+    margin-top: 100px;
+    grid-gap: 100px;
 }
