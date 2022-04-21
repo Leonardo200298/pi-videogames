@@ -9,7 +9,8 @@ import './home.css'
 
 export default function Home() {
   let videogames = useSelector((state) => state.allVideogames)
-  let oneGame = useSelector((state)=>state.game)
+  let oneGame = useSelector((state) => state.game)
+  let genres = useSelector((state)=>state.genre)
   let dispatch = useDispatch()
   const [currentPage, setCurrentPage] = useState(1);
   const [gamePerPage] = useState(15);
@@ -38,12 +39,28 @@ export default function Home() {
       <div className="home">
 
         {
-        oneGame.length ? oneGame.map((videogame) => {
-          return <Videogames name={videogame.name} image={videogame.image} rating={videogame.rating}/>
-        }):
-        intevalOfGames.length ? intevalOfGames.map((videogame) => {
-          return <Videogames name={videogame.name} image={videogame.image} rating={videogame.rating} />
-        }) : <Loading />
+          oneGame.length ? oneGame.map((videogame) => {
+            return <Videogames
+              name={videogame.name}
+              image={videogame.image}
+              rating={videogame.rating}
+              key={videogame.id}
+              keyID={videogame.id}
+              genres={videogame.genre}
+
+            />
+          }) :
+            intevalOfGames.length ? intevalOfGames.map((videogame) => {
+              return <Videogames
+                name={videogame.name}
+                image={videogame.image}
+                rating={videogame.rating}
+                key={videogame.id}
+                keyID={videogame.id}
+                genres={videogame.genre}
+
+              />
+            }) : <Loading />
         }
         {/* <Videogames/> */}
       </div>

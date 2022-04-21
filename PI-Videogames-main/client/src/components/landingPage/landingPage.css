@@ -10,6 +10,12 @@
     display: grid; 
     justify-content: center;
     align-items: center;
-    margin-top: 200px;
-    
+    /* margin-top: 200px; */
+    /* background-color: black; */
+    background-image: url('../../images/pacmanbackground.png');
+    width: 1360px;
+    height: 695px;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
 }
