@@ -2,13 +2,14 @@ const {Genre,Videogame} = require('../db')
 const axios = require('axios')
 const APIKEY = '8df31d27f3724043a2e647ffc07e80f5'
 
-const getGenresByDb = async (req,res)=>{
-    const allGenres = await Genre.findAll({})
+/* const getGenresByDb = async (req,res)=>{
+    const allGenres = await Genre.findAll()
+    console.log(allGenres)
     res.send(allGenres)
 }
 
 const dbGenres = async ()=>{
-    const {data} =await axios.get('https://api.rawg.io/api/genres?key=' + APIKEY)
+    const {data} =await axios.get(`https://api.rawg.io/api/genres?key=${APIKEY}`)
     data.results.map((n)=>{
         Genre.findOrCreate({
             where:{
@@ -16,8 +17,26 @@ const dbGenres = async ()=>{
             }
         })
     })
-}
+} */
+const genresByDbAndApi = async (req,res)=>{
+    try{
 
+        const api =await axios.get('https://api.rawg.io/api/genres?key=' + APIKEY)
+        console.log(api)
+        const genresOne = api.data.results.map(p => p.name) 
+        console.log(genresOne)
+        const genres = await genresOne.filter(p => p.length > 0)
+        console.log(genres)
+        genres.forEach(p => { 
+            if (p!==undefined) Genre.findOrCreate({where:{name:p}})
+        })  
+        const allGenres = await Genre.findAll();
+        console.log(allGenres)
+        return res.send(allGenres)
+    }catch(error){
+        console.log(error)
+    }
+}
 const allVideogamesByDb = ()=>{
     const videogames = Videogame.findAll({
         include:{
@@ -65,9 +84,10 @@ const getIdByDb = async (id)=>{
 
 module.exports = {
     allVideogamesByDb,
-    dbGenres,
+  
     videogameCreated,
-    getGenresByDb,
-    getIdByDb
+  
+    getIdByDb,
     
+    genresByDbAndApi
 }
