@@ -3,6 +3,7 @@ const { allVideogamesByDb, getIdByDb } = require('../controllersFunctions/dbFunc
 const API = 'https://api.rawg.io/api/games?key='
 const APIKEY = '8df31d27f3724043a2e647ffc07e80f5'
 
+
 const getVideogamesByApi = async () => {
 
     try {
@@ -44,32 +45,52 @@ const getVideogamesByApi = async () => {
         console.log(error)
     }
 }
-
-const getAllVideogames = async (req,res) => {
-    const {name} = req.query;
-    
-    try {
+const allVideoGames =async ()=>{
+    try{
         const [db, api] = await Promise.all([allVideogamesByDb(), getVideogamesByApi()])
         const allVideogames = [...db, ...api]
-      
-        if (name) {
-            //por lo visto no es necesario await
-            const gamesName = allVideogames.filter(game => {
+        return allVideogames
+    }catch(error){
+        console.log(error)
+    }
+}
+const getAllVideogames = async (req,res) => {
+    const {name} = req.query;
+    const allvideogamesFunction = await allVideoGames()
+    try{
+        if (!name){
+            return res.status(200).send(allvideogamesFunction)
+        }else{
+            const gameName  = allvideogamesFunction.filter((game) => {
                 return game.name === name
             });
-            gamesName.length? 
-                res.status(200).send(gamesName) :
-                res.status(404).send('The game no exist');
-        }else{
-            res.status(200).send(allVideogames)
+           
+            return res.status(200).send(gameName)
         }
-       
-        
-    } catch (error) {
+
+    }catch(error){
         console.log(error)
     }
 }
 const getVideogamesById = async (req,res)=>{
+    try{
+        const {id} = req.params;
+        const totalGames = await allVideoGames()
+        console.log(totalGames)
+        if (id) {
+            const idGames = totalGames.filter((idGame)=>{
+                return idGame.id===id
+            })
+            console.log(idGames)
+            idGames.length ?
+                res.status(200).send(idGames) :
+                res.status(404).send("No exist")
+        }
+    }catch(error){
+        console.log(error)
+    }
+}
+/* const getVideogamesById = async (req,res)=>{
     const {id} =req.params;
     try{
         if (id < 10){
@@ -92,22 +113,13 @@ const getVideogamesById = async (req,res)=>{
     }catch(error){
         console.log(error)
     }
-}
+} */
 //Como buscar por query
 //http://localhost:3001/api?name=The Wchorhttp://localhost:3001/api?name=The Wchor
 
-//busqueda de id de la manera que lo estaba haciendo antes
-/*   const allVideogamesFunction = await axios.get(` https://api.rawg.io/api/games/${id}?key=` + APIKEY)
-            console.log(allVideogamesFunction)
-            const gameId = await allVideogamesFunction.data.filter(idGame=>{
-                return idGame.id===id
-            })
-            //console.log(gameId)
-            gameId.length?
-            res.status(200).send(gameId) :
-            res.status(404).send('The id no exist') */
 
 module.exports = {
     getAllVideogames,
     getVideogamesById
+    
 }

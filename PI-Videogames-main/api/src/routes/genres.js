@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const {getGenresByDb,genresByDbAndApi} = require('../controllersFunctions/dbFunctions')
+const {genresByDbAndApi} = require('../controllersFunctions/dbFunctions')
 
-router.get('/',genresByDbAndApi)
+router.get('/genre',genresByDbAndApi)
 
 
 module.exports = router
