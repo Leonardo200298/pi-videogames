@@ -1,14 +1,20 @@
 import './videogames.css'
+import { Link } from "react-router-dom";
 
-export default function Videogames({image,name, rating, genres}){
+export default function Videogames({ image, name, rating, genres, key, keyID}) {
+    console.log(key, keyID)
+    console.log(name)
     return (
         <div className='container-videogames'>
-            <h3>{name}</h3>
+            <Link to={`/detail/${keyID}`}>
+                <h3>{name}</h3>
+            </Link>
+
             <img className='class-image' src={image} alt="images-videogames" />
             <h3>Rating: {rating}</h3>
             <h5>Genres: {genres
-                        ? genres.map((p) => p.name + ", ")
-                        : genres.map((p) => p.name + ", ")}</h5>
+                ? genres.map((p) => p.name + ", ")
+                : genres.map((p) => p.name + ", ")}</h5>
         </div>
     )
 }

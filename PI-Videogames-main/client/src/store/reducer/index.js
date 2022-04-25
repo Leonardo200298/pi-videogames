@@ -1,14 +1,16 @@
 import {
     GET_VIDEOGAMES,
     GET_GAME_BY_NAME,
-    GET_BY_GENRE
+    GET_BY_GENRE,
+    GET_DETAIL_BY_ID
 
 } from '../action';
 
 const initialState = {
     allVideogames:[],
     game:[],
-    genre:[]
+    genre:[],
+    detail:[]
 }
 
 export default function rootReducer(state=initialState,{type,payload}){
@@ -24,6 +26,10 @@ export default function rootReducer(state=initialState,{type,payload}){
         case GET_BY_GENRE: return{
             ...state,
             genre:payload
+        }
+        case GET_DETAIL_BY_ID:console.log(payload); return{
+            ...state,
+            detail:payload
         }
         default: return state
     }

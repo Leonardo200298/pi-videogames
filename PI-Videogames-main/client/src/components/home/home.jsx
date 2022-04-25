@@ -20,13 +20,11 @@ export default function Home() {
   const paged = (number) => {
     setCurrentPage(number)
   }
+  console.log(videogames)
   useEffect(() => {
     dispatch(getVideogames())
   }, [])
-  console.log(videogames)
   return (
-    //tal vez pasar lo que voy a poner en otro div
-    //recordar pasar la clase home al div que contenga todos los juegos
     <div >
       <Paged
         videogames={videogames.length}
