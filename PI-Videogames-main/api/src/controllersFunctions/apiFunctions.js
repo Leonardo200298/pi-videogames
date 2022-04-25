@@ -75,13 +75,14 @@ const getAllVideogames = async (req,res) => {
 const getVideogamesById = async (req,res)=>{
     try{
         const {id} = req.params;
+        
         const totalGames = await allVideoGames()
-        console.log(totalGames)
+        
         if (id) {
             const idGames = totalGames.filter((idGame)=>{
-                return idGame.id===id
+                return idGame.id===Number(id)
             })
-            console.log(idGames)
+            
             idGames.length ?
                 res.status(200).send(idGames) :
                 res.status(404).send("No exist")
@@ -90,30 +91,7 @@ const getVideogamesById = async (req,res)=>{
         console.log(error)
     }
 }
-/* const getVideogamesById = async (req,res)=>{
-    const {id} =req.params;
-    try{
-        if (id < 10){
-            let allVideogamesFunction = await axios.get(` https://api.rawg.io/api/games/${id}?key=` + APIKEY)
-            allVideogamesFunction = allVideogamesFunction.data;
-            var videogamee = {
-                id: allVideogamesFunction.id,
-                name: allVideogamesFunction.name,
-                description: allVideogamesFunction.description,
-                platform:allVideogamesFunction.platforms.map(info => info),
-                genre: allVideogamesFunction.genres.map(info => info),
-                image: allVideogamesFunction.background_image,
-                released: allVideogamesFunction.released,
-                rating: allVideogamesFunction.rating,
-            }
-            return res.send(videogamee)
 
-        }
-       return res.send(await getIdByDb(id))
-    }catch(error){
-        console.log(error)
-    }
-} */
 //Como buscar por query
 //http://localhost:3001/api?name=The Wchorhttp://localhost:3001/api?name=The Wchor
 
