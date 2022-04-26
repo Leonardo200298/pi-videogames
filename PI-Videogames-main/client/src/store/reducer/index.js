@@ -4,7 +4,8 @@ import {
     GET_BY_GENRE,
     GET_DETAIL_BY_ID,
     FILTER_BY_GENRES,
-    ORDER_BY
+    ORDER_BY,
+    CREATE_VIDEOGAME
 
 } from '../action';
 
@@ -12,7 +13,8 @@ const initialState = {
     allVideogames: [],
     game: [],
     genre: [],
-    detail: []
+    detail: [],
+    backUpVideogames: []
  
 }
 
@@ -20,7 +22,8 @@ export default function rootReducer(state = initialState, { type, payload }) {
     switch (type) {
         case GET_VIDEOGAMES: return {
             ...state,
-            allVideogames: payload
+            allVideogames: payload,
+            backUpVideogames: payload
         }
         case GET_GAME_BY_NAME: return {
             ...state,
@@ -35,7 +38,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
             detail: payload
         }
         case FILTER_BY_GENRES:
-            const allStateGames = state.allVideogames
+            const allStateGames = state.backUpVideogames
             const tempGames = allStateGames.filter(p => {
                 if (p.genre) { // info viene como [{name:..},{name:..},{name:..}]
                     const genres = p.genre.map(p => p.name)
@@ -85,7 +88,11 @@ export default function rootReducer(state = initialState, { type, payload }) {
                 allVideogames:orderForSort,
             }
         }
-
+        case CREATE_VIDEOGAME: return{
+            ...state,
+            backUpVideogames:payload,
+            allVideogames:payload
+        }
         default: return state
     }
 }

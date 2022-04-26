@@ -1,0 +1,28 @@
+.content-form{
+    display: grid;
+    justify-content: center;
+    grid-template-columns:300px ;
+    grid-gap: 5px;
+    margin-right: 50px;
+    margin-bottom: 25px;
+}
+
+.content-page-form{
+    display: flex;
+    flex-direction: column; 
+    flex-flow:column ; 
+    background-color: #ce4146;
+    margin-top: 25px;
+    max-height:900px;
+    margin-left:500px;
+    margin-right:450px;
+    border-radius: 20px;
+}
+.button-create{
+    margin: 10px 100px;
+}
+.danger{
+    color:black;
+    font-size: 15px;
+    
+}

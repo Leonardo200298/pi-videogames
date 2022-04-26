@@ -24,6 +24,7 @@ export default function CardDetail() {
                     <h4>Plataforms: {Array.isArray(details[0].platform)
                         ? details[0].platform.map((p) =>p.platform.name + " ")
                         : " "}</h4>
+                    <h4>Released: {details[0].released}</h4>
                 </>
             ) : <Loading />}
         </div>
