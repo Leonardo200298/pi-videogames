@@ -8,7 +8,7 @@ export default function GenresSelect({genres}){
         e.preventDefault()
         dispatch(filterByGenre(e.target.value))
     }
-    return (//all-genres
+    return (
         <div>
              <select onChange={e => handleSelectChange(e)}>
                 <option value="all-genres">all-genres</option>               

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getVideogames, getByGenre } from '../../store/action'
+import { getVideogames, getByGenre, orderBy } from '../../store/action'
 import Videogames from "../vdeogames/videogames"
 import Loading from "../loading/loading"
 import Paged from "../paged/paged"
 import SearchBar from "../searchBar/searchBar"
 import GenresSelect from "../genresSelect/genresSelect"
+import AscDescNameAndRating from "../ascDescNameAndRating/ascDescNameAndRating"
+import ButtonToForm from "../buttonToForm/buttonToForm"
 import './home.css'
 
 export default function Home() {
@@ -40,6 +42,11 @@ export default function Home() {
       <GenresSelect
         genres={genres}
       />
+      <AscDescNameAndRating
+        setCurrentPage={setCurrentPage}
+        orderBy={orderBy}
+      />
+      <ButtonToForm/>
       <div className="home">
 
         {
