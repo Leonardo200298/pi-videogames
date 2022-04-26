@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getVideogames } from '../../store/action'
+import { getVideogames, getByGenre } from '../../store/action'
 import Videogames from "../vdeogames/videogames"
 import Loading from "../loading/loading"
 import Paged from "../paged/paged"
 import SearchBar from "../searchBar/searchBar"
+import GenresSelect from "../genresSelect/genresSelect"
 import './home.css'
 
 export default function Home() {
@@ -23,7 +24,9 @@ export default function Home() {
   console.log(videogames)
   useEffect(() => {
     dispatch(getVideogames())
-  }, [])
+    dispatch(getByGenre())
+  }, [dispatch])
+
   return (
     <div >
       <Paged
@@ -33,6 +36,9 @@ export default function Home() {
       />
       <SearchBar
         setCurrentPage={setCurrentPage}
+      />
+      <GenresSelect
+        genres={genres}
       />
       <div className="home">
 

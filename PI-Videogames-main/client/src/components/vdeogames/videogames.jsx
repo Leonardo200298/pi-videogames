@@ -2,8 +2,6 @@ import './videogames.css'
 import { Link } from "react-router-dom";
 
 export default function Videogames({ image, name, rating, genres, key, keyID}) {
-    console.log(key, keyID)
-    console.log(name)
     return (
         <div className='container-videogames'>
             <Link to={`/detail/${keyID}`}>
