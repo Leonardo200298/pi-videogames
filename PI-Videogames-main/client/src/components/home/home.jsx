@@ -23,7 +23,7 @@ export default function Home() {
   const paged = (number) => {
     setCurrentPage(number)
   }
-  console.log(videogames)
+  console.log(genres)
   useEffect(() => {
     dispatch(getVideogames())
     dispatch(getByGenre())

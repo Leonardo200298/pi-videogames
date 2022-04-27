@@ -15,18 +15,23 @@ export function validate(input) {
     if (!input.released) {
         error.released = 'Released is required'
     }
+    if (!input.platform){
+        error.platform = 'Platform is required'
+    }
     return error;
 }
 
 export default function CreateYourGame() {
     const dispatch = useDispatch();
+    const genres = useSelector((state) => state.genre)
+    console.log(genres)
     const [input, setInput] = useState({
         id: uuidv4(),
         name: '',
         image: '',
         released: '',
-        genre: [],
-        platform: []
+        platform:[],
+        genre: []
     })
     const [error, setError] = useState({})
 
@@ -46,7 +51,14 @@ export default function CreateYourGame() {
             [e.target.name]: e.target.value
         }))
     }
-
+    const handleSelectChange = (e)=>{
+        e.preventDefault();
+        var tipo = genres.find((elemento) => elemento.name === e.target.value)
+        setInput({
+            ...input,
+            genre: [...input.genre, tipo.id]
+        })
+    }
     return (
         <div className='content-page-form'>
             <form onSubmit={(e)=>handleForm(e)} className="content-form">
@@ -62,6 +74,31 @@ export default function CreateYourGame() {
                 {error.image && (
                     <p className="danger">{error.image}</p>
                 )}
+                 <input onChange={(e)=>handleInputChange(e)} name="platform" placeholder='platform' value={input.platform} type="text" />
+                {error.platform&& (
+                    <p className="danger">{error.platform}</p>
+                )}
+                   <div >
+                    <select name="genre" onChange={(e) => handleSelectChange(e)}>
+                        <option value='all'>All-genres</option>
+                        {console.log(genres)}
+                        {genres && genres.map((genr) => {
+                            {console.log(genr.name)}
+                            return (
+                                <option
+                                    key={genr.id}
+                                    
+                                    value={genr.name}>
+                                    {genr.name}
+                                </option>
+                            );
+                        })}
+
+                    </select>
+
+
+                </div>
+
                 <input className='button-create' type="submit" value="Create" />
             </form>
         </div>

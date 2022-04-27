@@ -36,6 +36,7 @@ export function getByGenre() {
     try {
         return async function (dispatch) {
             const { data } = await axios.get('http://localhost:3001/api/genres/genre')
+            console.log(data)
             dispatch({ type: GET_BY_GENRE, payload: data })
         }
     } catch (error) {
