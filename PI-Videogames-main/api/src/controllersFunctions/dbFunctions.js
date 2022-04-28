@@ -22,29 +22,31 @@ const dbGenres = async ()=>{
     })
 } 
 
-const allVideogamesByDb = () => {
-    const videogames = Videogame.findAll({
+const allVideogamesByDb = async () => {
+    const videogames = await Videogame.findAll({
         include: {
             model: Genre
         }
     })
+    .then(r=>r).then(videogame=>videogame.map(e=>({id:e.id,name:e.name,image:e.image,description:e.description, released:e.releaseDate,rating:Number(e.rating),platform:e.plataforms,genre:e.genres})))
+    /* console.log('videogames de database', videogames) */
     return videogames;
 }
 const videogameCreated = async (req, res) => {
     try {
-        const { name, id, img, rating, description, genres, plataforms, releaseDate } = req.body
-
+        const { name, id, image, rating, description, genre, platforms, released } = req.body
+        console.log('back', name, id, image, rating, description, genre, platforms, released)
         let videogame = await Videogame.create({
             name,
             id,
-            img,
+            image,
             rating,
             description,
-            plataforms,
-            releaseDate
+            plataforms:platforms,
+            releaseDate:released
         })
         /* genres.map(async (id)=>await videogame.addGenre(Number(id))) */
-        await videogame.addGenre(genres)
+        await videogame.addGenre(genre)
     }
     catch (error) {
         console.log('error in post')

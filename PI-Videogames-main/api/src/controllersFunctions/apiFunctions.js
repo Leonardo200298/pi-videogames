@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { allVideogamesByDb, getIdByDb } = require('../controllersFunctions/dbFunctions');
+const { allVideogamesByDb } = require('../controllersFunctions/dbFunctions');
 const API = 'https://api.rawg.io/api/games?key='
 const APIKEY = '8df31d27f3724043a2e647ffc07e80f5'
 
@@ -31,7 +31,7 @@ const getVideogamesByApi = async () => {
 
                 id: info.id,
                 name: info.name,
-                description: info.description,
+                description: info.slug,
                 platform: info.platforms.map(info => info),
                 genre: info.genres.map(info => info),
                 image: info.background_image,
@@ -48,7 +48,10 @@ const getVideogamesByApi = async () => {
 const allVideoGames =async ()=>{
     try{
         const [db, api] = await Promise.all([allVideogamesByDb(), getVideogamesByApi()])
+        /* console.log('db games', db) */
         const allVideogames = [...db, ...api]
+        /* let firstGame = allVideogames.slice(0,15)
+        console.log('games de api',firstGame) */
         return allVideogames
     }catch(error){
         console.log(error)
@@ -62,7 +65,7 @@ const getAllVideogames = async (req,res) => {
             return res.status(200).send(allvideogamesFunction)
         }else{
             const gameName  = allvideogamesFunction.filter((game) => {
-                return game.name === name
+                return game.name.toLowerCase().includes(name.toLowerCase()) 
             });
            
             return res.status(200).send(gameName)
@@ -78,11 +81,19 @@ const getVideogamesById = async (req,res)=>{
         
         const totalGames = await allVideoGames()
         
-        if (id) {
+        if (id.length < 7) {
             const idGames = totalGames.filter((idGame)=>{
                 return idGame.id===Number(id)
             })
             
+            idGames.length ?
+                res.status(200).send(idGames) :
+                res.status(404).send("No exist")
+        }else{
+            const idGames = totalGames.filter((idGame)=>{
+                return idGame.id===id
+            })
+            /* console.log('id de videogame creado', idGames) */
             idGames.length ?
                 res.status(200).send(idGames) :
                 res.status(404).send("No exist")

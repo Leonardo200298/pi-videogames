@@ -24,6 +24,9 @@ module.exports = (sequelize) => {
     rating:{
       type:DataTypes.STRING
     },
+    image:{
+      type:DataTypes.TEXT
+    },
     plataforms:{
       type:DataTypes.ARRAY(TEXT),
       allowNull:false
