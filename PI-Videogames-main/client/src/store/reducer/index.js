@@ -5,7 +5,9 @@ import {
     GET_DETAIL_BY_ID,
     FILTER_BY_GENRES,
     ORDER_BY,
-    CREATE_VIDEOGAME
+    CREATE_VIDEOGAME,
+    CLEAN_STATE_DETAIL,
+    CLEAN_STATE
 
 } from '../action';
 
@@ -35,6 +37,7 @@ export default function rootReducer(state = initialState, { type, payload }) {
         }
         case GET_DETAIL_BY_ID: return {
             ...state,
+            game:[],
             detail: payload
         }
         case FILTER_BY_GENRES:
@@ -86,12 +89,21 @@ export default function rootReducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 allVideogames:orderForSort,
+                game:orderForSort
             }
         }
         case CREATE_VIDEOGAME: return{
             ...state,
             backUpVideogames:payload,
             allVideogames:payload
+        }
+        case CLEAN_STATE_DETAIL:return{
+            ...state,
+            detail:[]
+        }
+        case CLEAN_STATE: return{
+            ...state,
+            game:[...state.backUpVideogames]
         }
         default: return state
     }

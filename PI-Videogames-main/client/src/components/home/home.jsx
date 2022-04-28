@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { getVideogames, getByGenre, orderBy } from '../../store/action'
+import { getVideogames, getByGenre, orderBy, cleanState } from '../../store/action'
 import Videogames from "../vdeogames/videogames"
 import Loading from "../loading/loading"
 import Paged from "../paged/paged"
@@ -23,7 +23,6 @@ export default function Home() {
   const paged = (number) => {
     setCurrentPage(number)
   }
-  console.log(genres)
   useEffect(() => {
     dispatch(getVideogames())
     dispatch(getByGenre())
@@ -46,6 +45,7 @@ export default function Home() {
         setCurrentPage={setCurrentPage}
         orderBy={orderBy}
       />
+      <button onClick={()=>{dispatch(cleanState())}}>Refresh</button>
       <ButtonToForm/>
       <div className="home">
 
@@ -55,6 +55,7 @@ export default function Home() {
               name={videogame.name}
               image={videogame.image}
               rating={videogame.rating}
+              description={videogame.description}
               key={videogame.id}
               keyID={videogame.id}
               genres={videogame.genre}
@@ -66,6 +67,7 @@ export default function Home() {
                 name={videogame.name}
                 image={videogame.image}
                 rating={videogame.rating}
+                description={videogame.description}
                 key={videogame.id}
                 keyID={videogame.id}
                 genres={videogame.genre}

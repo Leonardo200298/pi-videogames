@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import { filterByGenre } from '../../store/action'
 
 export default function GenresSelect({genres}){
-    console.log(genres)
     const dispatch = useDispatch()
     const handleSelectChange = (e)=>{
         e.preventDefault()
@@ -19,7 +18,7 @@ export default function GenresSelect({genres}){
                             </option>
                         );
                     })}                    
-                {/* <option value='games'>Por Plataforma</option> */}
+               
             </select> 
         </div>
     )
